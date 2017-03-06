@@ -1,0 +1,49 @@
+metadata:
+  name: kafka
+spec:
+  replicas: 1
+  selector:
+    deploymentconfig: kafka
+  template:
+    metadata:
+      labels:
+        deploymentconfig: kafka
+    spec:
+      containers:
+      - name: apache-kafka
+        image: nferraro/kafka-zookeeper:1.0
+        imagePullPolicy: IfNotPresent
+        command:
+        - bin/kafka-server-start.sh
+        args:
+        - config/server.properties
+        - --override
+        - advertised.host.name=kafka
+        - --override
+        - log.segment.bytes=10485760
+        - --override
+        - log.retention.bytes=10485760
+        volumeMounts:
+        - mountPath: /tmp/kafka-logs
+          name: kafka-logs
+        ports:
+        - containerPort: 9092
+          name: kafka-port
+      - name: apache-zookeeper
+        image: nferraro/kafka-zookeeper:1.0
+        imagePullPolicy: IfNotPresent
+        command:
+        - bin/zookeeper-server-start.sh
+        args:
+        - config/zookeeper.properties
+        volumeMounts:
+        - mountPath: /tmp/zookeeper
+          name: zookeeper
+        ports:
+        - containerPort: 2181
+          name: zookeeper-port
+      volumes:
+      - name: kafka-logs
+        emptyDir: {}
+      - name: zookeeper
+        emptyDir: {}
