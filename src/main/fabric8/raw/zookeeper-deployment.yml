@@ -1,0 +1,28 @@
+metadata:
+  name: zookeeper
+spec:
+  replicas: 1
+  selector:
+    deploymentconfig: zookeeper
+  template:
+    metadata:
+      labels:
+        deploymentconfig: zookeeper
+    spec:
+      containers:
+      - name: apache-zookeeper
+        image: nferraro/kafka-zookeeper:1.0
+        imagePullPolicy: IfNotPresent
+        command:
+        - bin/zookeeper-server-start.sh
+        args:
+        - config/zookeeper.properties
+        volumeMounts:
+        - mountPath: /tmp/zookeeper
+          name: zookeeper
+        ports:
+        - containerPort: 2181
+          name: zookeeper-port
+      volumes:
+      - name: zookeeper
+        emptyDir: {}

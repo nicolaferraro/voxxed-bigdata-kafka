@@ -1,10 +1,8 @@
 metadata:
-  name: kafka
+  name: zookeeper
 spec:
   ports:
-  - name: kafka
-    port: 9092
   - name: zookeeper
     port: 2181
   selector:
-    deploymentconfig: kafka
+    deploymentconfig: zookeeper

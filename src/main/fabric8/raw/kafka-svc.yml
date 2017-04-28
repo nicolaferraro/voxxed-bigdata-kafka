@@ -1,0 +1,8 @@
+metadata:
+  name: kafka
+spec:
+  ports:
+  - name: kafka
+    port: 9092
+  selector:
+    deploymentconfig: kafka
