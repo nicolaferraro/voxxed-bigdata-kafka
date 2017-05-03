@@ -1,6 +1,6 @@
 # Voxxed BigData Kafka
 
-This repository contains the code of the Kafka broker used as demo at Voxxed Bucharest 2017.
+This repository contains the code of the Kafka broker used as demo at Voxxed talks in 2017.
 
 It is a development Kafka broker for Kubernetes. 
 It uses two containers in a pod to instantiate Zookeeper and Kafka. 
